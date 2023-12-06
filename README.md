@@ -25,6 +25,8 @@ make bash
 
 composer update
 
+php artisan migrate:fresh --seed
+
 exit
 
 
