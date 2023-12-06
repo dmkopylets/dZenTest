@@ -1,15 +1,19 @@
 ## Dmytro Kopylets
-*******************************************
+***
 
 **my contacts:**
 * dm.kopylets@gmail.com
-* https://t.me/Dmytro_Kopylets *
+* https://t.me/Dmytro_Kopylets
 
 ***
 
 **dzenCode Test Task (SPA-application: Comments)**
 
+***
 
+Full text of the task here [task](task%2FPHP_Laravel_SPA_Application_comments.pdf)
+
+***
 
 **to build docker container: use:**
 
