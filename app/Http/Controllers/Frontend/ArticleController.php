@@ -1,18 +1,29 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ArticleController extends Controller
 {
+    public function __construct(Article $model)
+    {
+        $this->model = $model;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view('article.index', [
+            'records' => $this->model->getList(),
+            'add_th' => array('user_name', 'body'),
+            'add_td' => array('user_name', 'body'),
+            'th_width' => array(160, 350)
+        ]);
     }
 
     /**
