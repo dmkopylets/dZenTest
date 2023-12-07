@@ -15,6 +15,7 @@ services:
       PHP_IDE_CONFIG: "serverName=Docker"
     volumes:
       - ./:/var/www
+      - ./docker/logs:/var/log
     ports:
       - "3000:3000"
     extra_hosts:
