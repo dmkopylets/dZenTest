@@ -32,13 +32,14 @@
               <tbody>
                 @foreach($records as $record)
                     <tr>
-                        <th  width="55px">{{$record['id']}} </th>
+                        <th  width="55px">{{$record->id}} </th>
                             @foreach ($add_td as $i => $value)
-                                <td  width="{{$th_width[$i]*1.6}}px">{{$record[$value]}} </td>
+                                <td  width="200px">{{$record->user->name}} </td>
+                                <td  width="{{$th_width[$i]*1.2}}px">{{$record->$value}} </td>
                             @endforeach
                        <td class="col-xs-2 flex">
                         <div style="float: right; margin-right: 2px;">
-                           <a href="{{ asset('/') . 'articles/' . $record['id'] . '/comment' }}" class="btn btn-outline-danger btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> comment</a>&nbsp&nbsp
+                           <a href="{{ asset('/') . 'articles/' . $record->id . '/comments' }}" class="btn btn-outline-danger btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Show - Comment</a>&nbsp&nbsp
                        </td>
                     </tr>
                 @endforeach

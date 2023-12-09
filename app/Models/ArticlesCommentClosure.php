@@ -3,12 +3,12 @@ namespace App\Models;
 
 use Franzose\ClosureTable\Models\ClosureTable;
 
-class CommentClosure extends ClosureTable
+class ArticlesCommentClosure extends ClosureTable
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'comment_closure';
+    protected $table = 'articles_comment_closure';
 }

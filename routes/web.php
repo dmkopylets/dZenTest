@@ -2,19 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+Route::resource('/', App\Http\Controllers\Frontend\ArticleController::class)->except(['create', 'edit', 'store', 'update', 'destroy']);
+Route::get('articles/{article}', [App\Http\Controllers\Frontend\ArticleController::class, 'show']);
+//Route::resource('articles.comments', App\Http\Controllers\Frontend\ArticleCommentController::class)->shallow();
+Route::get('articles/{article}/comments', [App\Http\Controllers\Frontend\ArticleCommentController::class, 'customMethod'])->name('articles.comments.custom');
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-Route::get('/', [App\Http\Controllers\Frontend\ArticleController::class, 'index']);
-Route::resource('articles', App\Http\Controllers\Frontend\ArticleController::class);

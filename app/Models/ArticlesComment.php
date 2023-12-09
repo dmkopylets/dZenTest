@@ -2,26 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Franzose\ClosureTable\Models\Entity;
+use App\Models\ArticlesCommentClosure;
 
-class Article extends Model
+class ArticlesComment extends Entity
 {
-    use HasFactory;
-
-    protected $table = 'articles';
-    protected $primaryKey = 'id';
-    protected $appends = ['user_name'];
-    protected $fillable = [
-        'id',
-        'user_id',
-        'title',
-        'body'
-    ];
-
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function article()
+    {
+        return $this->belongsTo(Article::class);
     }
 
     public function getList()
@@ -35,8 +28,6 @@ class Article extends Model
         return $list;
     }
 
-    public function getUserNameAttribute(): void
-    {
 
-    }
+
 }

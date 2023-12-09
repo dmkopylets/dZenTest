@@ -14,7 +14,6 @@ class CreateArticlesCommentsTableMigration extends Migration
             $table->foreignId('user_id')->constrained();
             $table->integer('parent_id')->unsigned()->nullable();
             $table->integer('position', false, true);
-            $table->string('title');
             $table->text('body');
             $table->softDeletes();
 
