@@ -35,6 +35,6 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        return route('articles.comments.custom', ['article' => $article]);
+        return route('articles.comments.index', ['article' => $article]);
     }
 }

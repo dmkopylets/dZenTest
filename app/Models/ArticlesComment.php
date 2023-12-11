@@ -2,11 +2,21 @@
 
 namespace App\Models;
 
-use Franzose\ClosureTable\Models\Entity;
-use App\Models\ArticlesCommentClosure;
+use Illuminate\Database\Eloquent\Model;
 
-class ArticlesComment extends Entity
+class ArticlesComment extends Model
 {
+    protected $table = 'articles_comments';
+    protected $primaryKey = 'id';
+    protected $fillable = [
+        'id',
+        'article_id',
+        'user_id',
+        'parent_id',
+        'body'
+    ];
+
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -17,17 +27,13 @@ class ArticlesComment extends Entity
         return $this->belongsTo(Article::class);
     }
 
-    public function getList()
+    public function replies()
     {
-        $list = self::get();
-        // $arrayList = $list->toArray();
-        // foreach ($list as $key => $value) {
-        //     $arrayList[$key]['user_name'] = $value->user->name;
-        // }
-        // return $arrayList;
-        return $list;
+        return $this->hasMany(ArticlesComment::class, 'parent_id');
     }
 
-
-
+    public function getList()
+    {
+        return ArticlesComment::get();
+    }
 }

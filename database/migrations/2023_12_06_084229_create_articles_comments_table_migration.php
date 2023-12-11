@@ -10,12 +10,13 @@ class CreateArticlesCommentsTableMigration extends Migration
     {
         Schema::create('articles_comments', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreignId('article_id')->nullable()->constrained(); // article_id може бути пустим
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('article_id')->unsigned()->nullable()->constrained(); // article_id може бути пустим
+            $table->foreignId('user_id')->unsigned()->constrained();
             $table->integer('parent_id')->unsigned()->nullable();
-            $table->integer('position', false, true);
+            $table->integer('position', false, true)->unsigned()->nullable();
             $table->text('body');
             $table->softDeletes();
+            $table->timestamps();
 
             $table->foreign('parent_id')
                 ->references('id')
