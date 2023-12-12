@@ -12,24 +12,30 @@ use App\Models\Entities\ArticlesCommentEntity;
 class ArticleCommentController extends \App\Http\Controllers\Controller
 {
     protected Article $article;
+    protected UserFetcher $userFetcher;
+    protected array $ramdomUser = [];
+    protected array $usersArray = [];
 
     public function __construct(ArticlesComment $model)
     {
         $this->model = $model;
+        $this->userFetcher = new UserFetcher();
+        $this->usersArray = $this->userFetcher->getListArray();
+        $this->ramdomUser = $this->usersArray[array_rand($this->usersArray)];
     }
     /**
      * Display a listing of the resource.
      */
     public function index(Article $article)
     {
-        $this->article = $article;
-        $userFetcher = new UserFetcher();
         $commentsFetcher = new ArticleCommentsFetcher();
         $comments = $commentsFetcher->getListArray($article->id);
         return view('article.comment.index', [
+            'title' => 'Article # ' . $article->id . ' by ' . $article->user->name,
             'comments' => $comments,
             'article' => $article,
-            'usersList' => $userFetcher->getListArray(),
+            'usersList' => $this->usersArray,
+            'singedUser' => $this->ramdomUser,
         ]);
     }
 
@@ -40,8 +46,8 @@ class ArticleCommentController extends \App\Http\Controllers\Controller
         //$input['parent_id'] = 0;
         $input['position'] = 1;
         $input['body'] = (string)$request->input('body');
-         ArticlesComment::create($input);
-         return back();
+        ArticlesComment::create($input);
+        return back();
     }
 
     public function store(Request $request)

@@ -23,6 +23,7 @@ class ArticleController extends Controller
     public function index()
     {
         return view('article.index', [
+            'title' => 'Articals list',
             'records' => $this->model->getList(),
             'add_th' => array('Title'),
             'add_td' => array( 'title'),

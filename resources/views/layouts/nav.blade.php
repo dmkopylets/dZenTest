@@ -1,23 +1,35 @@
-<nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Main Menu</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{asset('#')}}">Point 1<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{asset('#')}}">Point 2<span class="sr-only">(current)</span></a>
-                </li>
-            </ul>
-        </div>
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand">You are currently signed in as a random user:</a>
+    <div class="row g-2">
+    <div class="col-md">
+    <div class="form-floating">
+      <input type="email" class="form-control" id="email" placeholder="{{ $singedUser['email'] }}" value="{{ $singedUser['email'] }}">
+      <label for="email">Email address</label>
     </div>
-</nav>
+  </div>
+  <div class="col-md">
+    <div class="form-floating">
+      <input type="text" class="form-control" id="User_Name" placeholder="{{ $singedUser['name'] }}" value="{{ $singedUser['name'] }}">
+      <label for="User_Name">User name</label>
+    </div>
+  </div>
+  </div>
 
+    <form class="d-flex" role="search">
+    <div>
+    <a class="navbar-brand; margin-right:10pt;">select a commenter: </a>
+                </div>
+                <div class="input-group-prepend">
+                    <select class="form-control userDialer" id="userDialer" name="userDialer" required>
+                        @foreach($usersList as $user)
+                        <option value="{{$user['id']}}">{{$user['name']}}</option>
+                        @endforeach
+                    </select>
+                </div>
+    </form>
+  </div>
+</nav>
 
 
 

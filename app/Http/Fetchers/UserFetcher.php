@@ -11,6 +11,6 @@ class UserFetcher
 public function getListArray()
 
     {
-        return User::select('id', 'name')->orderBy('name', 'asc')->get()->toArray();
+        return User::select('id', 'name', 'email')->orderBy('name', 'asc')->get()->toArray();
     }
 }
