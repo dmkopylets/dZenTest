@@ -21,5 +21,6 @@ class Controller extends BaseController
     {
         $this->userFetcher = new UserFetcher();
         $this->usersArray = $this->userFetcher->getListArray();
+        $this->signedUser = $this->usersArray[array_rand($this->usersArray)];
     }
 }

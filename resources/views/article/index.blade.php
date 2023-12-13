@@ -39,7 +39,7 @@
                             @endforeach
                        <td class="col-xs-2 flex">
                         <div style="float: right; margin-right: 2px;">
-                           <a href="{{ asset('/') . 'articles/' . $record->id . '/show' }}" class="btn btn-outline-danger btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Show - Comment</a>&nbsp&nbsp
+                           <a href="{{ asset('/') . 'articles/' . $record->id }}" class="btn btn-outline-danger btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Show - Comment</a>
                        </td>
                     </tr>
                 @endforeach

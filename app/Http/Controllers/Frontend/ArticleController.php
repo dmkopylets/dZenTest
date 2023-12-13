@@ -15,7 +15,6 @@ class ArticleController extends Controller
     {
         parent::__construct();
         $this->model = $model;
-        $this->signedUser = $this->usersArray[array_rand($this->usersArray)];
     }
 
     /**
@@ -37,9 +36,9 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Article $article, Request $request)
+    public function show(Request $request, Article $article,)
     {
-        dd($request->input('userDialer'));
-        return route('articles.comments.index', ['article' => $article]);
+        dd($request->input('email'));
+        return route('articles.comments', ['article' => $article, $signedUser = []]);
     }
 }

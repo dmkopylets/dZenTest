@@ -19,20 +19,20 @@ class ArticleCommentController extends \App\Http\Controllers\Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Article $article, Request $request)
+    public function index(Article $article, array $signedUser, Request $request)
     {
+        dd($article);
         //dd($request->input('userDialer'));
         $commentsFetcher = new ArticleCommentsFetcher();
         $comments = $commentsFetcher->getListArray($article->id);
         $this->signedUser = $this->usersArray[(int)$request->input('userDialer')];
-        dd($this->signedUser);
 
         return view('article.comment.index', [
             'title' => 'Article # ' . $article->id . ' by ' . $article->user->name,
             'comments' => $comments,
             'article' => $article,
             'usersList' => $this->usersArray,
-            'signedUser' => $this->signedUser,
+            'signedUser' => $signedUser,
         ]);
     }
 
@@ -63,6 +63,5 @@ class ArticleCommentController extends \App\Http\Controllers\Controller
         ArticlesComment::create($input);
         //dd($comment);
         return back();
-        // return route('articles/' . (int)request()->article . '/comments', ['comment => $comment']);
     }
 }
