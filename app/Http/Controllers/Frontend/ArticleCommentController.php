@@ -5,37 +5,34 @@ namespace App\Http\Controllers\Frontend;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Models\ArticlesComment;
-use App\Http\Fetchers\UserFetcher;
 use App\Http\Fetchers\ArticleCommentsFetcher;
 use App\Models\Entities\ArticlesCommentEntity;
 
 class ArticleCommentController extends \App\Http\Controllers\Controller
 {
     protected Article $article;
-    protected UserFetcher $userFetcher;
-    protected array $ramdomUser = [];
-    protected array $usersArray = [];
 
     public function __construct(ArticlesComment $model)
     {
         $this->model = $model;
-        $this->userFetcher = new UserFetcher();
-        $this->usersArray = $this->userFetcher->getListArray();
-        $this->ramdomUser = $this->usersArray[array_rand($this->usersArray)];
     }
     /**
      * Display a listing of the resource.
      */
-    public function index(Article $article)
+    public function index(Article $article, Request $request)
     {
+        //dd($request->input('userDialer'));
         $commentsFetcher = new ArticleCommentsFetcher();
         $comments = $commentsFetcher->getListArray($article->id);
+        $this->signedUser = $this->usersArray[(int)$request->input('userDialer')];
+        dd($this->signedUser);
+
         return view('article.comment.index', [
             'title' => 'Article # ' . $article->id . ' by ' . $article->user->name,
             'comments' => $comments,
             'article' => $article,
             'usersList' => $this->usersArray,
-            'singedUser' => $this->ramdomUser,
+            'signedUser' => $this->signedUser,
         ]);
     }
 
@@ -43,7 +40,6 @@ class ArticleCommentController extends \App\Http\Controllers\Controller
     {
         $input['user_id'] = (int)$request->input('userDialer');
         $input['article_id'] = request()->article;
-        //$input['parent_id'] = 0;
         $input['position'] = 1;
         $input['body'] = (string)$request->input('body');
         ArticlesComment::create($input);
@@ -52,7 +48,7 @@ class ArticleCommentController extends \App\Http\Controllers\Controller
 
     public function store(Request $request)
     {
-        $input['user_id'] = (int)$request->input('replicator');
+        $input['user_id'] = (int)$request->input('userDialer');
         $input['article_id'] = request()->article;
         $input['parent_id'] = request()->input('parent_id');
         $input['body'] = (string)$request->input('body');

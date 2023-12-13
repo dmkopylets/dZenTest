@@ -6,7 +6,6 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Frontend\ArticleCommentController;
-use App\Models\ArticlesComment;
 
 class ArticleController extends Controller
 {
@@ -14,7 +13,9 @@ class ArticleController extends Controller
 
     public function __construct(Article $model)
     {
+        parent::__construct();
         $this->model = $model;
+        $this->signedUser = $this->usersArray[array_rand($this->usersArray)];
     }
 
     /**
@@ -27,15 +28,18 @@ class ArticleController extends Controller
             'records' => $this->model->getList(),
             'add_th' => array('Title'),
             'add_td' => array( 'title'),
-            'th_width' => array(350)
+            'th_width' => array(350),
+            'usersList' => $this->usersArray,
+            'signedUser' => $this->signedUser,
         ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Article $article)
+    public function show(Article $article, Request $request)
     {
+        dd($request->input('userDialer'));
         return route('articles.comments.index', ['article' => $article]);
     }
 }
