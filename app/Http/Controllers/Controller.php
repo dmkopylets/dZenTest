@@ -17,22 +17,22 @@ class Controller extends BaseController
     protected UserFetcher $userFetcher;
     protected array $usersArray = [];
     protected array $signedUser;
+    protected Request $myRequest;
 
-    public function __construct(Request $request)
+    public function __construct()
     {
         $this->userFetcher = new UserFetcher();
         $this->usersArray = $this->userFetcher->getListArray();
-        if (!isset($this->signedUser)) {
-            $this->signedUser = $this->usersArray[array_rand($this->usersArray)];
-        }
-        else {
-            $this->setSignedUser((int)$request->input('userDialer'));
-        }
+        $this->myRequest = new Request();
     }
 
     public function setSignedUser(int $id): void
     {
         $this->signedUser = $this->usersArray[$id];
     }
-
+    public function getSignedUser(): array
+    {
+        $this->setSignedUser((int)$this->myRequest->input('userDialer'));
+        return $this->signedUser;
+    }
 }

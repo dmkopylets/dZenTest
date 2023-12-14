@@ -8,12 +8,18 @@
     @endif
 
     <div class="flex-center position-ref full-height">
-            @csrf
+        <form>
+        @csrf
+        @method('post')
             <table class="table table-fixed table-striped" id="dict-table">
                 <thead>
                     <tr>
                         <th width="15px">#</th>
+                        <th class="col-xs-2" width="110px">
+                            <input type="text" name="searchAuthor" id="searchAuthor" class="form-control" value="Autor" placeholder="Author">
+                        </th>
                         @foreach ($add_th as $i => $value)
+
                         <th class="col-xs-2" width="{{$th_width[$i]*0.75}}px">
                             <input type="text" name="searchMy_{{$add_td[$i]}}" id="searchMy_{{$add_td[$i]}}" class="form-control" value="<?php echo isset($_REQUEST['searchMy_' . $add_td[$i]]) ? $_REQUEST['searchMy_' . $add_td[$i]] : '' ?>" placeholder={{$add_th[$i]}}>
                         </th>
@@ -38,7 +44,7 @@
                             <div style="float: right; margin-right: 2px;">
                                 <button class="btn btn-warning btn-block"
                                     type="submit"
-                                    formaction="{{ route('articles.show', ['article' => $record]) }}"
+                                    formaction="{{ route('articles.comments', ['article' => $record]) }}"
                                     formmethod="post"
                                     >Show - Comment
                                 </button>
@@ -48,7 +54,7 @@
                     @endforeach
                 </tbody>
             </table>
-
+        </form>
     </div>
 </div>
 @endsection

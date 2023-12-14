@@ -26,20 +26,9 @@ class ArticleController extends Controller
             'title' => 'Articals list',
             'records' => $this->model->getList(),
             'add_th' => array('Title'),
-            'add_td' => array( 'title'),
+            'add_td' => array('title'),
             'th_width' => array(350),
             'usersList' => $this->usersArray,
-            'signedUser' => $this->signedUser,
         ]);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Request $request, Article $article)
-    {
-        $this->setSignedUser((int)$request->input('userDialer'));
-
-        return route('articles.comments', ['article' => $article]);
     }
 }

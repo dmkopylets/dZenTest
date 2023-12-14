@@ -20,47 +20,38 @@ class ArticleCommentController extends \App\Http\Controllers\Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Article $article)
+    public function index(Article $article, Request $request)
     {
-        //dd($this->signedUser);
-                //$this->signedUser = $this->usersArray[(int)$request->input('userDialer')];
         $commentsFetcher = new ArticleCommentsFetcher();
         $comments = $commentsFetcher->getListArray($article->id);
-
         return view('article.comment.index', [
             'title' => 'Article # ' . $article->id . ' by ' . $article->user->name,
             'comments' => $comments,
             'article' => $article,
             'usersList' => $this->usersArray,
-            'signedUser' => $this->signedUser,
+            'signedUser' => $this->getSignedUser(),
         ]);
     }
 
-    public function addFirst(Request $request)
+    public function addFirst(Article $article, Request $request)
     {
         $input['user_id'] = (int)$request->input('userDialer');
-        $input['article_id'] = request()->article;
+        $input['article_id'] = $article->id;
         $input['position'] = 1;
         $input['body'] = (string)$request->input('body');
         ArticlesComment::create($input);
-        return back();
+        return redirect()->route('articles.comments', ['article' => $article]);
     }
 
-    public function store(Request $request)
+    public function store(Article $article, ArticlesComment $comment, Request $request,)
     {
         $input['user_id'] = (int)$request->input('userDialer');
-        $input['article_id'] = request()->article;
-        $input['parent_id'] = request()->input('parent_id');
-        $input['body'] = (string)$request->input('body');
-
-        $comment = ArticlesCommentEntity::find(request()->input('parent_id'));
+        $input['article_id'] = $article->id;
+        $input['parent_id'] = request()->input('parent_id_' . (string)$comment->id);
+        $input['body'] = (string)$request->input('body_' . (string)$comment->id );
         $input['position'] = $comment->position + 1;
-
-
-        // $newChildComment = new ArticlesCommentEntity($input);
-        // $comment->addChild($newChildComment);
         ArticlesComment::create($input);
-        //dd($comment);
-        return back();
+
+        return redirect()->route('articles.comments', ['article' => $article]);
     }
 }

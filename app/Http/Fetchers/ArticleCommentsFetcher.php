@@ -11,7 +11,9 @@ class ArticleCommentsFetcher
     public function getListArray($articleId)
     {
         return ArticlesComment::where('article_id', $articleId)
-        ->orderby('id','desc')
+        ->orderby('parent_id','asc')
+        ->orderby('position','asc')
+        ->orderby('id','asc')
         ->get();
     }
 }
