@@ -21,8 +21,7 @@
     <hr />
     <br>
 
-    <form method="post">
-        @csrf
+
 
         <span class="text-muted"><i>New comment for this article</i></span>
         <textarea class="form-control" name="body" rows="4"></textarea>
@@ -34,7 +33,7 @@
                 </div>
             </div>
         </div>
-    </form>
+
 </div>
 
 @endsection

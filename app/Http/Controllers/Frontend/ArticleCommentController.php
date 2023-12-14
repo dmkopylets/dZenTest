@@ -12,27 +12,27 @@ class ArticleCommentController extends \App\Http\Controllers\Controller
 {
     protected Article $article;
 
-    public function __construct(ArticlesComment $model)
+    public function __construct(ArticlesComment $model, Request $request)
     {
+        parent::__construct($request);
         $this->model = $model;
     }
     /**
      * Display a listing of the resource.
      */
-    public function index(Article $article, array $signedUser, Request $request)
+    public function index(Article $article)
     {
-        dd($article);
-        //dd($request->input('userDialer'));
+        //dd($this->signedUser);
+                //$this->signedUser = $this->usersArray[(int)$request->input('userDialer')];
         $commentsFetcher = new ArticleCommentsFetcher();
         $comments = $commentsFetcher->getListArray($article->id);
-        $this->signedUser = $this->usersArray[(int)$request->input('userDialer')];
 
         return view('article.comment.index', [
             'title' => 'Article # ' . $article->id . ' by ' . $article->user->name,
             'comments' => $comments,
             'article' => $article,
             'usersList' => $this->usersArray,
-            'signedUser' => $signedUser,
+            'signedUser' => $this->signedUser,
         ]);
     }
 
@@ -56,7 +56,6 @@ class ArticleCommentController extends \App\Http\Controllers\Controller
         $comment = ArticlesCommentEntity::find(request()->input('parent_id'));
         $input['position'] = $comment->position + 1;
 
-        //dd($input);
 
         // $newChildComment = new ArticlesCommentEntity($input);
         // $comment->addChild($newChildComment);

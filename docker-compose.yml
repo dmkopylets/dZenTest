@@ -19,7 +19,7 @@ services:
     ports:
       - "3000:3000"
     extra_hosts:
-      - "host.docker.internal:172.17.0.1"
+      - "172.18.0.1:172.18.0.1"
 
   postgres:
     container_name: ${APP_NAME}-postgres

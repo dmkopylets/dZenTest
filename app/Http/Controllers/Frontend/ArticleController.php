@@ -11,9 +11,9 @@ class ArticleController extends Controller
 {
     private ArticleCommentController $comments;
 
-    public function __construct(Article $model)
+    public function __construct(Article $model, Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
         $this->model = $model;
     }
 
@@ -36,9 +36,10 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, Article $article,)
+    public function show(Request $request, Article $article)
     {
-        dd($request->input('email'));
-        return route('articles.comments', ['article' => $article, $signedUser = []]);
+        $this->setSignedUser((int)$request->input('userDialer'));
+
+        return route('articles.comments', ['article' => $article]);
     }
 }
