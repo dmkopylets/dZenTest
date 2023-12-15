@@ -17,6 +17,8 @@ Full text of the task here [task](task%2FPHP_Laravel_SPA_Application_comments.pd
 
 **to build docker containers use:**
 
+copy file .env.example to .env
+
 make dc-build
 
 **to start the containers use:**
