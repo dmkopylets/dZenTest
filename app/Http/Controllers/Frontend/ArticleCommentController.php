@@ -23,7 +23,10 @@ class ArticleCommentController extends \App\Http\Controllers\Controller
     public function index(Article $article, Request $request)
     {
         $commentsFetcher = new ArticleCommentsFetcher();
-        $comments = $commentsFetcher->getFirstReplicas($article->id);
+        $comments = $commentsFetcher->getCombinedReplicas($article->id);
+
+
+
         return view('article.comment.index', [
             'title' => 'Article # ' . $article->id . ' by ' . $article->user->name,
             'comments' => $comments,
