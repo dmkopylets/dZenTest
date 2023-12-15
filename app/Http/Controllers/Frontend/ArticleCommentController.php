@@ -52,7 +52,7 @@ class ArticleCommentController extends \App\Http\Controllers\Controller
         $input['article_id'] = $article->id;
         $input['parent_id'] = request()->input('parent_id_' . (string)$comment->id);
         $input['body'] = (string)$request->input('replyText');
-        $input['position'] = $comment->position + 1;
+        $input['position'] = $comment->position++;
         ArticlesComment::create($input);
 
         return redirect()->route('articles.comments', ['article' => $article]);
