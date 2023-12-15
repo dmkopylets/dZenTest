@@ -23,7 +23,7 @@ class ArticleCommentController extends \App\Http\Controllers\Controller
     public function index(Article $article, Request $request)
     {
         $commentsFetcher = new ArticleCommentsFetcher();
-        $comments = $commentsFetcher->getListArray($article->id);
+        $comments = $commentsFetcher->getFirstReplicas($article->id);
         return view('article.comment.index', [
             'title' => 'Article # ' . $article->id . ' by ' . $article->user->name,
             'comments' => $comments,
@@ -38,7 +38,7 @@ class ArticleCommentController extends \App\Http\Controllers\Controller
         $input['user_id'] = (int)$request->input('userDialer');
         $input['article_id'] = $article->id;
         $input['position'] = 1;
-        $input['body'] = (string)$request->input('body');
+        $input['body'] = (string)$request->input('articleCommentText');
         ArticlesComment::create($input);
         return redirect()->route('articles.comments', ['article' => $article]);
     }
@@ -48,7 +48,7 @@ class ArticleCommentController extends \App\Http\Controllers\Controller
         $input['user_id'] = (int)$request->input('userDialer');
         $input['article_id'] = $article->id;
         $input['parent_id'] = request()->input('parent_id_' . (string)$comment->id);
-        $input['body'] = (string)$request->input('body_' . (string)$comment->id );
+        $input['body'] = (string)$request->input('replyText');
         $input['position'] = $comment->position + 1;
         ArticlesComment::create($input);
 

@@ -8,12 +8,21 @@ use App\Models\ArticlesComment;
 
 class ArticleCommentsFetcher
 {
-    public function getListArray($articleId)
+    public function getFirstReplicas($articleId)
     {
         return ArticlesComment::where('article_id', $articleId)
-        ->orderby('parent_id','asc')
-        ->orderby('position','asc')
-        ->orderby('id','asc')
+        ->whereNull('parent_id')
+        ->orderby('position', 'asc')
+        ->orderby('id', 'asc')
+        ->get();
+    }
+    public function getReplicas($articleId, $parentId)
+    {
+        return ArticlesComment::where('article_id', $articleId)
+        ->whereNotNull('parent_id')
+        ->where('parent_id', $parentId)
+        ->orderby('position', 'asc')
+        ->orderby('id',' asc')
         ->get();
     }
 }
