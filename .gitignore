@@ -19,9 +19,6 @@ yarn-error.log
 /.vscode
 /.dockerignore
 /docker/db/data/
-/docker/logs/nginx/localhost_error.log
-/docker/logs/nginx/localhost_access.log
-/docker/logs/nginx/error.log
 
 /_ide_helper.php
 /nbproject/
