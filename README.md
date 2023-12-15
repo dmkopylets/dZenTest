@@ -15,30 +15,33 @@ Full text of the task here [task](task%2FPHP_Laravel_SPA_Application_comments.pd
 
 ***
 
-**to build docker container: use:**
+**to build docker containers use:**
 
 make dc-build
 
-then install packages for vendors:
-
-make bash
-
-composer update
-
-exit
-
-
-***
-
-**to start the program, use:**
+**to start the containers use:**
 
 make dc-up
 
+**then install packages for vendors:**
+
+make composer-i
+
+**then initialize the database:**
+
+make db-init
+
+***
 
 **it will be possible to test the application in a browser at localhost**
 
-   http://localhost - You will see a frontend built using Symfony
+   http://localhost - You will see a frontend built using Laravel
 
-   http://localhost/doc - Swagger API documentation
+in the future could only use 
+**make dc-up**
+
+
+and to stop docker containers use 
+**make dc-down**
 
 

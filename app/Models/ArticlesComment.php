@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ArticlesComment extends Model
+{
+    protected $table = 'articles_comments';
+    protected $primaryKey = 'id';
+    protected $fillable = [
+        'id',
+        'article_id',
+        'user_id',
+        'parent_id',
+        'body'
+    ];
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function article()
+    {
+        return $this->belongsTo(Article::class);
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(ArticlesComment::class, 'parent_id');
+    }
+
+    public function getList()
+    {
+        return ArticlesComment::get();
+    }
+}

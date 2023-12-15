@@ -20,9 +20,6 @@ dc-down:
 bash:
 	$(EXEC_PHP) bash
 
-fixtures:
-	$(EXEC_PHP) sh -c " php bin/console doctrine:fixtures:load --no-interaction"
-
 test:
 	$(EXEC_PHP) sh -c " APP_ENV=test php bin/phpunit"
 
@@ -30,19 +27,14 @@ composer-i:
 	$(EXEC_PHP) sh -c " composer install"
 
 clear-cache:
-	$(EXEC_PHP) bash -c " rm -rf var"
-
-test-init:
-	$(EXEC_PHP) sh -c " php bin/console doctrine:database:drop --env=test --force --if-exists; php bin/console doctrine:database:create --env=test --ansi; php bin/console  doctrine:schema:creat --env=test;"
-
-migrate:
-	$(EXEC_PHP) sh -c " php bin/console doctrine:migrations:migrate --no-interaction"
-
-migrate-diff:
-	$(EXEC_PHP) sh -c " php bin/console doctrine:migrations:diff"
+	$(EXEC_PHP) bash -c " php artisan route:clear &&  php artisan config:cache && php artisan view:clear && php artisan route:clear && php artisan optimize:clear"
 
 nginx-restart:
 	cd docker; docker exec -it www sh -c "nginx -t && nginx -s reload"
 
 swagger-generate:
 	$(EXEC_PHP) sh -c "./vendor/bin/openapi /var/www/src -o /var/www/api/openApi/swagger.json"
+
+db-init:
+	$(EXEC_PHP) bash -c " php artisan migrate:fresh --seed"
+
