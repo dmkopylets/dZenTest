@@ -1,0 +1,5 @@
+172.21.0.1 - - [15/Dec/2023:12:41:08 +0000] "GET / HTTP/1.1" 200 18301 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0"
+172.21.0.1 - - [15/Dec/2023:12:41:08 +0000] "GET /css/bootstrap.min.css HTTP/1.1" 200 194901 "http://localhost/" "Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0"
+172.21.0.1 - - [15/Dec/2023:12:41:08 +0000] "GET /_debugbar/assets/javascript?v=1702643383 HTTP/1.1" 200 303802 "http://localhost/" "Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0"
+172.21.0.1 - - [15/Dec/2023:12:41:08 +0000] "GET /_debugbar/assets/stylesheets?v=1702643383&theme=auto HTTP/1.1" 200 242291 "http://localhost/" "Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0"
+172.21.0.1 - - [15/Dec/2023:12:41:08 +0000] "GET /fonts/fontawesome-webfont.woff2?v=4.7.0 HTTP/1.1" 200 77160 "http://localhost/css/font-awesome.min.css" "Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0"

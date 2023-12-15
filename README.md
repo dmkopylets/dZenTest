@@ -15,7 +15,11 @@ Full text of the task here [task](task%2FPHP_Laravel_SPA_Application_comments.pd
 
 ***
 
+git clone https://github.com/dmkopylets/dZenTest.git
+
 **to build docker containers use:**
+
+copy file .env.example to .env
 
 make dc-build
 
