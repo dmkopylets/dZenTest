@@ -30,6 +30,14 @@
     <hr />
         @if ( count($comments) > 0 )
             <h3>There are comments for this article:</h3>
+            <table width="700">
+                <tr>
+                    <th width="5%"></th>
+                    <th width="25%">username</th>
+                    <th width="40%">email</th>
+                    <th width="30%">created</th>
+                </tr>
+            </table>
             @include('article.comment.commentsDisplay', ['comments' => $comments, 'article_id' => $article->id])
         @else
             <h3>There are no comments for this article</h3>
