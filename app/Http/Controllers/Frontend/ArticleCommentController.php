@@ -6,24 +6,27 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Models\ArticlesComment;
 use App\Http\Fetchers\ArticleCommentsFetcher;
-use App\Models\Entities\ArticlesCommentEntity;
+use App\Http\Fetchers\OrderByDTO;
 
 class ArticleCommentController extends \App\Http\Controllers\Controller
 {
     protected Article $article;
+    protected OrderByDTO $ordering;
 
     public function __construct(ArticlesComment $model, Request $request)
     {
         parent::__construct($request);
         $this->model = $model;
+        $this->ordering = new OrderByDTO;
     }
     /**
      * Display a listing of the resource.
      */
     public function index(Article $article, Request $request)
     {
+        $this->ordering->userName = 'asc';
         $commentsFetcher = new ArticleCommentsFetcher();
-        $comments = $commentsFetcher->getCombinedReplicas($article->id);
+        $comments = $commentsFetcher->getCombinedReplicas( $article->id, $this->ordering );
 
         return view('article.comment.index', [
             'title' => 'Article # ' . $article->id . ' by ' . $article->user->name,
