@@ -29,6 +29,7 @@ class ArticleController extends Controller
             'add_td' => array('title'),
             'th_width' => array(350),
             'usersList' => $this->usersArray,
+            'orderingSets' => $this->ordering,
         ]);
     }
 }

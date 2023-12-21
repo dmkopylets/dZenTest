@@ -7,6 +7,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Fetchers\UserFetcher;
+use App\Http\Fetchers\OrderByDTO;
 use Illuminate\Http\Request;
 
 class Controller extends BaseController
@@ -17,12 +18,14 @@ class Controller extends BaseController
     protected UserFetcher $userFetcher;
     protected array $usersArray = [];
     protected array $signedUser;
+    protected OrderByDTO $ordering;
     protected Request $myRequest;
 
     public function __construct()
     {
         $this->userFetcher = new UserFetcher();
         $this->usersArray = $this->userFetcher->getListArray();
+        $this->ordering = new OrderByDTO;
         $this->myRequest = new Request();
     }
 

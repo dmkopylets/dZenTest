@@ -37,8 +37,6 @@ class ArticleCommentsFetcher
 
             $firstReplicas = $firstReplicas->cursorPaginate(25);
 
-            //dd($firstReplicas->cursorPaginate(25));
-
         // We get child replicas for each first replica
         foreach ($firstReplicas as $replica) {
             $replica->replicas = $this->getReplicas($articleId, $replica->id);

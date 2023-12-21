@@ -6,18 +6,15 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Models\ArticlesComment;
 use App\Http\Fetchers\ArticleCommentsFetcher;
-use App\Http\Fetchers\OrderByDTO;
 
 class ArticleCommentController extends \App\Http\Controllers\Controller
 {
     protected Article $article;
-    protected OrderByDTO $ordering;
 
     public function __construct(ArticlesComment $model, Request $request)
     {
         parent::__construct($request);
         $this->model = $model;
-        $this->ordering = new OrderByDTO;
     }
     /**
      * Display a listing of the resource.
@@ -34,6 +31,7 @@ class ArticleCommentController extends \App\Http\Controllers\Controller
             'article' => $article,
             'usersList' => $this->usersArray,
             'signedUser' => $this->getSignedUser(),
+            'orderingSets' => $this->ordering
         ]);
     }
 
@@ -55,7 +53,6 @@ class ArticleCommentController extends \App\Http\Controllers\Controller
         $input['body'] = (string)$request->input('replyText');
         $input['position'] = $comment->position++;
         ArticlesComment::create($input);
-
         return redirect()->route('articles.comments', ['article' => $article]);
     }
 }

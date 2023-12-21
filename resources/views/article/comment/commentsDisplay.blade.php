@@ -6,10 +6,10 @@
                 <table width="700">
                     <tr>
                         <td width="25%">
-                            <strong>{{ $comment->user_name }} </strong>
+                            <strong>{{ __($comment->user_name) }} </strong>
                         </td>
                         <td width="30%">
-                            {{ $comment->user_email }}
+                            {{ __($comment->user_email) }}
                         </td>
                         <td width="30%">
                             <code>{{ $comment->created_at }}</code>
@@ -17,7 +17,7 @@
                     </tr>
                     <tr>
                         <td>
-                            {{ $comment->body }}
+                            {{ __($comment->body) }}
                         </td>
                         <td>
                             <input type="hidden" name="parent_id_{{ $comment->id }}" value="{{ $comment->id }}" />
@@ -37,8 +37,8 @@
                 @foreach($comment->replicas as $replica)
                 <table class="table table-striped" <tr>
                     <td>
-                        <strong>{{ $replica->user_name }}</strong> {{ $replica->created_at }}
-                        <p>@for ($i = 0; $i < $replica->position; $i++) {{"---"}}@endfor{{ $replica->body }}</p>
+                        <strong>{{ __($replica->user->name) }}</strong> {{ $replica->created_at }}
+                        <p>@for ($i = 0; $i < $replica->position; $i++) {{"---"}}@endfor {{ __($replica->body) }}</p>
                         <input type="hidden" name="parent_id_{{ $replica->id }}" value="{{ $replica->id }}" />
                         <input type="hidden" name="position_{{ $replica->position }}" value="{{ $replica->position }}" />
                     </td>

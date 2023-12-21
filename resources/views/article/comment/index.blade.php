@@ -33,9 +33,33 @@
             <table width="700">
                 <tr>
                     <th width="5%"></th>
-                    <th width="25%">username</th>
-                    <th width="40%">email</th>
-                    <th width="30%">created</th>
+                    <th width="25%">
+                    <div class="form-check form-switch p-0">
+                        <div class="d-inline-flex flex-row-reverse gap-1">
+                            <input class="form-check-input ms-0" type="checkbox" id="switchChecOrderByUserName" onclick="switchedChecOrderByUserName()">
+                            <label class="form-check-label" for="switchChecOrderByUserName">User name</label>
+                            <i class="fa fa-sort"></i>
+                        </div>
+                    </div>
+                    </th>
+                    <th width="40%">
+                    <div class="form-check form-switch p-0">
+                        <div class="d-inline-flex flex-row-reverse gap-1">
+                            <input class="form-check-input ms-0" type="checkbox" id="switchChecOrderByEmail" onclick="switchedChecOrderByEmail()">
+                            <label class="form-check-label" for="switchChecOrderByEmail">email</label>
+                            <i class="fa fa-sort"></i>
+                        </div>
+                    </div>
+                    </th>
+                    <th width="30%">
+                    <div class="form-check form-switch p-0">
+                        <div class="d-inline-flex flex-row-reverse gap-1">
+                            <input class="form-check-input ms-0" type="checkbox" id="switchChecOrderByCreatedAt" onclick="switchedChecOrderByCreatedAt()">
+                            <label class="form-check-label" for="switchChecOrderByCreatedAt">created</label>
+                            <i class="fa fa-sort"></i>
+                        </div>
+                    </div>
+                    </th>
                 </tr>
             </table>
             @include('article.comment.commentsDisplay', ['comments' => $comments, 'article_id' => $article->id])
