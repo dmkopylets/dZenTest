@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Fetchers\ArticleCommentsFetcher;
 use App\Http\Fetchers\UserFetcher;
 use App\Http\Fetchers\OrderByDTO;
 use Illuminate\Http\Request;
@@ -16,6 +17,7 @@ class Controller extends BaseController
 
     protected Model $model;
     protected UserFetcher $userFetcher;
+    protected ArticleCommentsFetcher $commentsFetcher;
     protected array $usersArray = [];
     protected array $signedUser;
     protected OrderByDTO $ordering;
@@ -24,6 +26,7 @@ class Controller extends BaseController
     public function __construct()
     {
         $this->userFetcher = new UserFetcher();
+        $this->commentsFetcher = new ArticleCommentsFetcher;
         $this->usersArray = $this->userFetcher->getListArray();
         $this->ordering = new OrderByDTO;
         $this->myRequest = new Request();

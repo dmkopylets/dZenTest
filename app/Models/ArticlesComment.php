@@ -16,6 +16,7 @@ class ArticlesComment extends Model
         'body'
     ];
 
+    public $sortable = ['created_at'];
 
     public function user()
     {

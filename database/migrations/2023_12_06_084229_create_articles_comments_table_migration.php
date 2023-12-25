@@ -24,30 +24,10 @@ class CreateArticlesCommentsTableMigration extends Migration
                 ->onDelete('set null');
 
         });
-
-        Schema::create('articles_comments_closure', function (Blueprint $table) {
-            $table->increments('closure_id');
-
-            $table->integer('ancestor', false, true);
-            $table->integer('descendant', false, true);
-            $table->integer('depth', false, true);
-
-            $table->foreign('ancestor')
-                ->references('id')
-                ->on('articles_comments')
-                ->onDelete('cascade');
-
-            $table->foreign('descendant')
-                ->references('id')
-                ->on('articles_comments')
-                ->onDelete('cascade');
-
-        });
     }
 
     public function down()
     {
-        Schema::dropIfExists('articles_comments_closure');
         Schema::dropIfExists('articles_comments');
     }
 }

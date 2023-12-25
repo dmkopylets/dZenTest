@@ -11,6 +11,11 @@ class ArticleCommentsFetcher
 {
     public function getCombinedReplicas(int $articleId, OrderByDTO $ordering)
     {
+        if (!isset($ordering->userName)) {$ordering->userName = 'asc';}
+        if (!isset($ordering->email)) {$ordering->email = 'asc';}
+        if (!isset($ordering->createdAt)) {$ordering->createdAt = 'desc';}
+        if (!isset($ordering->selected)) {$ordering->selected = 'userName';}
+
         $firstReplicas = ArticlesComment::select(
             'articles_comments.id',
             'articles_comments.article_id',
@@ -25,17 +30,17 @@ class ArticleCommentsFetcher
             ->whereNull('articles_comments.parent_id')
             ->leftJoin('users', 'articles_comments.user_id', '=', 'users.id');
 
-            if ($ordering->userName !== 'none'){
+            if ($ordering->selected === 'userName'){
                 $firstReplicas->orderBy('user_name', $ordering->userName);
             }
 
-            if ($ordering->email !== 'none'){
+            if ($ordering->selected === 'email'){
                 $firstReplicas->orderBy('user_email', $ordering->email);
             }
 
             $firstReplicas->orderBy('articles_comments.created_at', $ordering->createdAt);
 
-            $firstReplicas = $firstReplicas->cursorPaginate(25);
+            $firstReplicas = $firstReplicas->paginate(6);
 
         // We get child replicas for each first replica
         foreach ($firstReplicas as $replica) {

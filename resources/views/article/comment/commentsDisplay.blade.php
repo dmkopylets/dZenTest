@@ -5,6 +5,7 @@
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse-{{ $comment->id }}" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
                 <table width="700">
                     <tr>
+
                         <td width="25%">
                             <strong>{{ __($comment->user_name) }} </strong>
                         </td>
@@ -58,6 +59,8 @@
     @endforeach
 
     <div class="paginator">
+        {!! $comments->appends(\Request::except('page'))->render() !!}
+        <p>{{ __('Page') }} {{ $comments->currentPage() }} {{ __('of') }} {{ $comments->lastPage() }}</p>
         {{ $comments->links() }}
     </div>
 

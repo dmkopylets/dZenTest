@@ -168,8 +168,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
-        Franzose\ClosureTable\ClosureTableServiceProvider::class,
+       /*
+       * Third Party Service Providers...
+       */
+       Barryvdh\Debugbar\ServiceProvider::class,
     ])->toArray(),
 
     /*
