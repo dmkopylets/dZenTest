@@ -1,0 +1,64 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel Swagger API documentation for test task",
+        "contact": {
+            "name": "Dmytro",
+            "email": "dm.kopylets@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/articles/{article}/comments": {
+            "get": {
+                "tags": [
+                    "comments"
+                ],
+                "summary": "list of comments to the article",
+                "operationId": "getCommentsList",
+                "parameters": [
+                    {
+                        "name": "article",
+                        "in": "path",
+                        "description": "Articles id to show list",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "comments not found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/articles": {
+            "get": {
+                "tags": [
+                    "articles"
+                ],
+                "summary": "Articles listing",
+                "operationId": "getArticlesList",
+                "responses": {
+                    "404": {
+                        "description": "articles not found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -20,7 +20,7 @@ class Controller extends BaseController
     protected ArticleCommentsFetcher $commentsFetcher;
     protected array $usersArray = [];
     protected array $signedUser;
-    protected OrderByDTO $ordering;
+    protected OrderByDTO $orderingSets;
     protected Request $myRequest;
 
     public function __construct()
@@ -28,7 +28,7 @@ class Controller extends BaseController
         $this->userFetcher = new UserFetcher();
         $this->commentsFetcher = new ArticleCommentsFetcher;
         $this->usersArray = $this->userFetcher->getListArray();
-        $this->ordering = new OrderByDTO;
+        $this->orderingSets = new OrderByDTO;
         $this->myRequest = new Request();
     }
 

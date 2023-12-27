@@ -6,8 +6,8 @@ namespace App\Http\Fetchers;
 
 class OrderByDTO
 {
-    public mixed $userName;
-    public mixed $email;
-    public mixed $createdAt;
-    public mixed $selected;
+    public string $userName = 'asc';
+    public string $email = 'asc';
+    public string $createdAt = 'desc';
+    public string $selected = 'userName';
 }
