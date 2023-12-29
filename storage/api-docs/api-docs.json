@@ -47,15 +47,36 @@
                 ],
                 "summary": "Articles listing",
                 "operationId": "getArticlesList",
-                "responses": {
-                    "404": {
-                        "description": "articles not found"
+                "parameters": [
+                    {
+                        "name": "wantedAuthor",
+                        "in": "query",
+                        "description": "part of the user name",
+                        "schema": {
+                            "type": "string"
+                        }
                     },
+                    {
+                        "name": "wantedTitle",
+                        "in": "query",
+                        "description": "part of the article's title",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
                     "200": {
                         "description": "OK",
                         "content": {
                             "application/json": {}
                         }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "articles not found"
                     }
                 }
             }

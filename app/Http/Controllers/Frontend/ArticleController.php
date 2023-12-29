@@ -20,14 +20,17 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index( Request $request )
     {
+        $wantedAuthor = __($request->input('wantedAuthor'));
+        $wantedTitle = __($request->input('wantedTitle'));
+
         return view('article.index', [
             'title' => 'Articals list',
-            'records' => $this->model->getList(),
-            'add_th' => array('Title'),
-            'add_td' => array('title'),
-            'th_width' => array(350),
+            'records' => $this->model->getList($wantedAuthor, $wantedTitle),
+            'add_th' => array('Author', 'Title'),
+            'add_td' => array('user_name', 'title'),
+            'th_width' => array(200, 400),
             'usersList' => $this->usersArray,
             'orderingSets' => $this->orderingSets,
         ]);

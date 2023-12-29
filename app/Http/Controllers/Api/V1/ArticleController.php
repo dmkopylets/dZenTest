@@ -8,6 +8,7 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\V1\ApiController;
 use OpenApi\Annotations as OA;
+use Illuminate\Http\JsonResponse;
 
 class ArticleController extends ApiController
 {
@@ -23,10 +24,22 @@ class ArticleController extends ApiController
      *     summary="Articles listing",
      *     operationId="getArticlesList",
      *     tags={"articles"},
-     *     @OA\Response(
-     *          response=404,
-     *          description="articles not found",
-     *       ),
+     *     @OA\Parameter(
+     *         description="part of the user name",
+     *         name="wantedAuthor",
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         description="part of the article's title",
+     *         name="wantedTitle",
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),
      *     @OA\Response(
      *          response="default",
      *          response=200,
@@ -34,11 +47,21 @@ class ArticleController extends ApiController
      *          @OA\MediaType(
      *              mediaType="application/json"
      *           )
+     *       ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *     @OA\Response(
+     *          response=404,
+     *          description="articles not found",
      *       )
      *  )
      */
-    public function index()
+    public function index( Request $request ) : JsonResponse
     {
-        return response()->json($this->model->getList(), 200, [], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        $wantedAuthor = __($request->input('wantedAuthor'));
+        $wantedTitle = __($request->input('wantedTitle'));
+        return response()->json($this->model->getList($wantedAuthor, $wantedTitle), 200, [], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
 }

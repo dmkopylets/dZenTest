@@ -40,7 +40,7 @@ class ArticleCommentsFetcher
 
             $firstReplicas->orderBy('articles_comments.created_at', $ordering->createdAt);
 
-            $firstReplicas = $firstReplicas->paginate(6);
+            $firstReplicas = $firstReplicas->paginate(25);
 
         // We get child replicas for each first replica
         foreach ($firstReplicas as $replica) {

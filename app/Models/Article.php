@@ -23,9 +23,23 @@ class Article extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getList()
+    public function getList(? string $wantedAuthor, ? string $wantedTitle)
     {
-        $list = self::get();
-        return $list;
+        $list = self::select(
+            'articles.id',
+            'articles.user_id',
+            'articles.title',
+            'articles.body',
+            'articles.created_at',
+            'users.name as user_name',
+            'users.email as user_email'
+        )
+            ->where('users.name', 'like', '%' . $wantedAuthor . '%')
+            ->where('title', 'like', '%' . $wantedTitle . '%')
+            ->leftJoin('users', 'articles.user_id', '=', 'users.id')
+            ->get();
+
+            return $list;
+
     }
 }
