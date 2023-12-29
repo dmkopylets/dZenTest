@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Traits;
 
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Response;
 
 trait ApiResponse
 {
@@ -18,7 +18,7 @@ trait ApiResponse
         return Response::json(self::makeError($error, $data), $code);
     }
 
-    public static function makeResponse(string $message, mixed $data): array
+    public static function makeResponse(string $message, \Illuminate\Database\Eloquent\Collection $data): mixed
     {
         return [
             'success' => true,

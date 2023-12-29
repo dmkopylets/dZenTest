@@ -58,10 +58,15 @@ class ArticleController extends ApiController
      *       )
      *  )
      */
-    public function index( Request $request ) : JsonResponse
+    public function index( Request $request ) //: JsonResponse
     {
         $wantedAuthor = __($request->input('wantedAuthor'));
         $wantedTitle = __($request->input('wantedTitle'));
-        return response()->json($this->model->getList($wantedAuthor, $wantedTitle), 200, [], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        $articles = $this->model->getList($wantedAuthor, $wantedTitle);
+
+        if (count($articles) < 1 ) {
+            return $this->sendError('no such articles were found', 404, []);
+        }
+        return $this->sendResponse($articles, 'Ok', 200);
     }
 }

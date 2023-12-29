@@ -38,7 +38,6 @@ class Article extends Model
             ->where('title', 'like', '%' . $wantedTitle . '%')
             ->leftJoin('users', 'articles.user_id', '=', 'users.id')
             ->get();
-
             return $list;
 
     }
