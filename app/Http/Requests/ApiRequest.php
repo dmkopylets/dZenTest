@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Foundation\Http\FormRequest as Request;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-abstract class ApiRequest extends FormRequest
+abstract class ApiRequest extends Request
 {
     public function authorize(): bool
     {

@@ -18,7 +18,7 @@ trait ApiResponse
         return Response::json(self::makeError($error, $data), $code);
     }
 
-    public static function makeResponse(string $message, \Illuminate\Database\Eloquent\Collection $data): mixed
+    public static function makeResponse(string $message, ? \Illuminate\Database\Eloquent\Collection $data): mixed
     {
         return [
             'success' => true,

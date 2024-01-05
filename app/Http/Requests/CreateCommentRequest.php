@@ -9,15 +9,18 @@ class CreateCommentRequest extends ApiRequest
     public function rules()
     {
         return [
-            'user_id'  => 'required|integer',
-            'article_id'  => 'required|integer',
-            'body'  => 'required|string',
-            'target_amount'  => 'required|between:0.01,9999999.99',
-            'link'  => 'required|string',
-            'completed' => 'integer|between:0,1'
+            'user_id'  => 'required|integer|exists:users,id',
+            'article_id'  => 'required|integer|exists:articles,id',
+            'body'  => 'min:3|max:1000',
         ];
     }
 
+    public function validationData()
+    {
+        return array_merge($this->all(), [
+            'article_id' => $this->route('article_id'),
+        ]);
+    }
     /**
      * Custom message for validation
      *
@@ -26,11 +29,11 @@ class CreateCommentRequest extends ApiRequest
     public function messages()
     {
         return [
-            'user_id.required' => 'User id is required!',
-            'article_id.required' => 'Article id is required!',
-            'body.required' => 'Body (text) of comments is required!',
-            'target_amount.required' => 'Target amount is required!',
-            'link.required' => 'Link is required!',
+            'user_id.required' => 'User Id is required!',
+            'user_id.exists' => 'User with this Id is required!',
+            'article_id.required' => 'Article Id is required!',
+            'article_id.exists' => 'Article with this Id is required!',
+            'body.min' => 'Body (text) of comments Should be Minimum of 3 Character!',
         ];
     }
 }

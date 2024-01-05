@@ -33,7 +33,7 @@ nginx-restart:
 	cd docker; docker exec -it www sh -c "nginx -t && nginx -s reload"
 
 swagger-generate:
-	$(EXEC_PHP) sh -c "./vendor/bin/openapi /var/www/src -o /var/www/api/openApi/swagger.json"
+	$(EXEC_PHP) sh -c " php artisan l5-swagger:generate"
 
 db-init:
 	$(EXEC_PHP) bash -c " php artisan migrate:fresh --seed"

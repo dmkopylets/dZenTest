@@ -54,17 +54,58 @@ class ArticleCommentController extends ApiController
         return response()->json($this->commentsFetcher->getCombinedReplicas($articleId, $orderingSets), 200, [], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
 
-    public function addFirst(CreateCommentRequest $request)
+    /**
+     * @OA\Post(
+     *     path="/api/v1/articles/{article_id}/comments/add-first",
+     *     summary="add firstLevel comment to the article",
+     *     operationId="addFirstComment",
+     *     tags={"comments"},
+     *     @OA\Parameter(
+     *         name="article_id",
+     *         description="Articles id to comment",
+     *         required=true,
+     *         in="path",
+     *         @OA\Schema(
+     *             type="integer",
+     *         )
+     *      ),
+     *     @OA\Parameter(
+     *         name="user_id",
+     *         description="Users id to comment",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="integer",
+     *         )
+     *      ),
+     *     @OA\Parameter(
+     *         name="body",
+     *         description="Text comment",
+     *         in="query",
+     *         @OA\Schema(
+     *             type="text",
+     *         )
+     *      ),
+     *     @OA\Response(
+     *          response=404,
+     *          description="comments not found",
+     *       ),
+     *     @OA\Response(
+     *          response="default",
+     *          response=200,
+     *          description="OK",
+     *          @OA\MediaType(
+     *              mediaType="application/json"
+     *           )
+     *       )
+     *  )
+     */
+    public function addFirst(int $articleId, CreateCommentRequest $request)
     {
-        // $input['user_id'] = (int)$request->input('userDialer');
-        // $input['article_id'] = $articleId;
-        // $input['position'] = 1;
-        // $input['body'] = (string)$request->input('articleCommentText');
-        // $this->model::create($input);
-
-        return parent::add($request);
-
-        // return redirect()->route('api.v1.articles.comments', ['article' => $article]);
+        $data = $request->validated();
+        $data['position'] = 1;
+        $this->model->fill($data)->push();
+        return $this->sendResponse(null, 'Created', 201);
     }
 
     public function store(Article $article, ArticlesComment $comment, Request $request)
