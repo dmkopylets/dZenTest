@@ -37,13 +37,19 @@ make db-init
 
 ***
 
-**it will be possible to test the application in a browser at localhost**
-
-   http://localhost - You will see a frontend built using Laravel
-
 in the future could only use 
 **make dc-up**
 
+**it will be possible to test the application in a browser at localhost**
+
+**  http://localhost - You will see a frontend built using Laravel
+    ![frontend.png](task%2Ffrontend.png) 
+
+**  http://localhost/api/v1/articles ... - API responses
+    ![backend.png](task%2Fbackend.png)   
+
+**  http://localhost/api/documentation - Swagger API documentation
+    ![documentation.png](task%2Fdocumentation.png)    
 
 and to stop docker containers use 
 **make dc-down**
