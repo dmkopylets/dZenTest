@@ -88,6 +88,115 @@
                 }
             }
         },
+        "/api/v1/articles/{article_id}/comments/add-reply": {
+            "post": {
+                "tags": [
+                    "comments"
+                ],
+                "summary": "add comment to comment",
+                "operationId": "addReply",
+                "parameters": [
+                    {
+                        "name": "article_id",
+                        "in": "path",
+                        "description": "Articles id to comment",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "Users id to comment",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "parent_id",
+                        "in": "path",
+                        "description": "id parent's comment",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "body",
+                        "in": "query",
+                        "description": "Text comment",
+                        "schema": {
+                            "type": "text"
+                        }
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "comments not found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/articles/comments/store": {
+            "post": {
+                "tags": [
+                    "comments"
+                ],
+                "summary": "main action",
+                "operationId": "saveComment",
+                "requestBody": {
+                    "description": "Client side request to store comment",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "properties": {
+                                            "user_id": {
+                                                "type": "integer"
+                                            },
+                                            "article_id": {
+                                                "type": "integer"
+                                            },
+                                            "body": {
+                                                "type": "string"
+                                            },
+                                            "parent_id": {
+                                                "type": "integer"
+                                            },
+                                            "position": {
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/articles/{article}/comments/reSortByDate": {
             "get": {
                 "tags": [

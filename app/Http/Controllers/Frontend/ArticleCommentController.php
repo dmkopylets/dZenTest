@@ -6,6 +6,7 @@ use App\Http\Fetchers\OrderByDTO;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Models\ArticlesComment;
+use App\Http\Requests\CreateCommentRequest;
 
 class ArticleCommentController extends \App\Http\Controllers\Controller
 {
@@ -33,25 +34,25 @@ class ArticleCommentController extends \App\Http\Controllers\Controller
         ]);
     }
 
-    public function addFirst(Article $article, Request $request)
+    public function addFirst(Article $article, CreateCommentRequest $request)
     {
-        $input['user_id'] = (int)$request->input('userDialer');
-        $input['article_id'] = $article->id;
+        $input = $request->validated();
         $input['position'] = 1;
-        $input['body'] = (string)$request->input('articleCommentText');
-        $this->model::create($input);
-        return redirect()->route('articles.comments', ['article' => $article]);
+        $url = route('articles.comments.store');
+        $response = Request::create($url, 'POST', ['data' => json_encode($input)]);
+        $result = app()->handle($response);
+        return redirect()->route('articles.comments', ['article' => $input['article_id']]);
     }
 
-    public function store(Article $article, ArticlesComment $comment, Request $request,)
+    public function addReply(Article $article, ArticlesComment $comment, CreateCommentRequest $request)
     {
-        $input['user_id'] = (int)$request->input('userDialer');
-        $input['article_id'] = $article->id;
+        $input = $request->validated();
         $input['parent_id'] = request()->input('parent_id_' . (string)$comment->id);
-        $input['body'] = (string)$request->input('replyText');
         $input['position'] = $comment->position++;
-        $this->model::create($input);
-        return redirect()->route('articles.comments', ['article' => $article]);
+        $url = route('articles.comments.store');
+        $response = Request::create($url, 'POST', ['data' => json_encode($input)]);
+        $result = app()->handle($response);
+        return redirect()->route('articles.comments', ['article' => $input['article_id']]);
     }
 
     private function applyOrdering(Article $article, array $orderingSets)

@@ -9,9 +9,9 @@ class CreateCommentRequest extends ApiRequest
     public function rules()
     {
         return [
-            'user_id'  => 'required|integer|exists:users,id',
-            'article_id'  => 'required|integer|exists:articles,id',
-            'body'  => 'min:3|max:1000',
+            'user_id' => 'required|integer|exists:users,id',
+            'article_id' => 'required|integer|exists:articles,id',
+            'body' => 'min:3|max:300',
         ];
     }
 
@@ -34,6 +34,7 @@ class CreateCommentRequest extends ApiRequest
             'article_id.required' => 'Article Id is required!',
             'article_id.exists' => 'Article with this Id is required!',
             'body.min' => 'Body (text) of comments Should be Minimum of 3 Character!',
+            'body.max' => 'Body (text) of comments Should not be larger than 300 characters!',
         ];
     }
 }

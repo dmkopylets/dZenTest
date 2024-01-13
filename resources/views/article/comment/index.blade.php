@@ -12,17 +12,18 @@
     <h3>Article owner <strong>{{$article->user->name}}</strong></h3>
 
     <textarea readonly class="form-control" name="article_text" rows="4"> {{$article->body}} </textarea>
-    <input type="hidden" name="article_id" value="{{ $article->id }}" />
+    <input type="hidden" id="article_id" name="article_id" value="{{ $article->id }}" />
+    <input type="hidden" id="user_id" name="user_id" value="{{ $article->user->id }}" />
     <span class="text-muted"><i>New comment for this <strong>article</strong></i></span>
         <div class="row" style="margin-top:5pt; margin-left:2pt; margin-right:2pt;">
-        <textarea class="form-control" name="articleCommentText" rows="3"></textarea>
+        <textarea class="form-control" name="body" rows="3"></textarea>
             <div style="float: right; margin-right: 10px;">
                     <button
                     class="btn btn-warning btn-block"
                     type="submit"
                     formmethod="post"
                     style="float: right;"
-                    formaction="{{ route('articles.comments.first', ['article' => $article]) }}"
+                    formaction="{{ route('articles.comments.first', ['article_id' => $article]) }}"
                     >Comment article</button>
             </div>
         </div>

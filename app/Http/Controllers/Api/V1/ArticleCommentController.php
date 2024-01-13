@@ -100,25 +100,116 @@ class ArticleCommentController extends ApiController
      *       )
      *  )
      */
-    public function addFirst(int $articleId, CreateCommentRequest $request)
+    public function addFirst(CreateCommentRequest $request)
     {
         $data = $request->validated();
         $data['position'] = 1;
-        $this->model->fill($data)->push();
+        //$this->model->fill($data)->push();
         return $this->sendResponse(null, 'Created', 201);
     }
 
-    public function store(Article $article, ArticlesComment $comment, Request $request)
+    /**
+     * @OA\Post(
+     *     path="/api/v1/articles/{article_id}/comments/add-reply",
+     *     summary="add comment to comment",
+     *     operationId="addReply",
+     *     tags={"comments"},
+     *     @OA\Parameter(
+     *         name="article_id",
+     *         description="Articles id to comment",
+     *         required=true,
+     *         in="path",
+     *         @OA\Schema(
+     *             type="integer",
+     *         )
+     *      ),
+     *     @OA\Parameter(
+     *         name="user_id",
+     *         description="Users id to comment",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="integer",
+     *         )
+     *      ),
+     *     @OA\Parameter(
+     *         name="parent_id",
+     *         description="id parent's comment",
+     *         required=true,
+     *         in="path",
+     *         @OA\Schema(
+     *             type="integer",
+     *         )
+     *      ),
+     *     @OA\Parameter(
+     *         name="body",
+     *         description="Text comment",
+     *         in="query",
+     *         @OA\Schema(
+     *             type="text",
+     *         )
+     *      ),
+     *     @OA\Response(
+     *          response=404,
+     *          description="comments not found",
+     *       ),
+     *     @OA\Response(
+     *          response="default",
+     *          response=200,
+     *          description="OK",
+     *          @OA\MediaType(
+     *              mediaType="application/json"
+     *           )
+     *       )
+     *  )
+     */
+    public function addReply(Article $article, ArticlesComment $comment, Request $request)
     {
-        // $input['user_id'] = (int)$request->input('userDialer');
-        // $input['article_id'] = $article->id;
-        // $input['parent_id'] = request()->input('parent_id_' . (string)$comment->id);
-        // $input['body'] = (string)$request->input('replyText');
-        // $input['position'] = $comment->position++;
-        // $this->model::create($input);
-        // return redirect()->route('articles.comments', ['article' => $article]);
+        $data = $request->validated();
+        $data['position'] = $comment->position++;
+        $input['parent_id'] = $comment->id;
+        //$this->model->fill($data)->push();
+        return $this->sendResponse(null, 'Created', 201);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/v1/articles/comments/store",
+     *     summary="main action",
+     *     operationId="saveComment",
+     *     tags={"comments"},
+     *     @OA\RequestBody(
+     *         description="Client side request to store comment",
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="data",
+     *                     type="object",
+     *                     @OA\Property(property="user_id", type="integer"),
+     *                     @OA\Property(property="article_id", type="integer"),
+     *                     @OA\Property(property="body", type="string"),
+     *                     @OA\Property(property="parent_id", type="integer"),
+     *                     @OA\Property(property="position", type="integer"),
+     *                 ),
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         @OA\JsonContent()
+     *     )
+     * )
+     */
+    public function store(Request $request)
+    {
+        $data = json_decode($request->input('data'), true);
+        $this->model->fill($data)->push();
+        return $this->sendResponse(null, 'Created', 201);
+    }
     /**
      * @OA\Get(
      *     path="/api/v1/articles/{article}/comments/reSortByDate",

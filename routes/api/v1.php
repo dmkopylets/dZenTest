@@ -9,4 +9,6 @@ use Illuminate\Support\Facades\Route;
     Route::get('articles/{article}/comments/reSortByName',[App\Http\Controllers\Api\V1\ArticleCommentController::class, 'reSortByName'])->name('articles.comments.reSortByName');
     Route::get('articles/{article}/comments/reSortByEmail',[App\Http\Controllers\Api\V1\ArticleCommentController::class, 'reSortByEmail'])->name('articles.comments.reSortByEmail');
     Route::post('articles/{article_id}/comments/add-first', [App\Http\Controllers\Api\V1\ArticleCommentController::class, 'addFirst'])->name('articles.comments.first');
+    Route::post('articles/{article_id}/comments/add-reply', [App\Http\Controllers\Api\V1\ArticleCommentController::class, 'addReply'])->name('articles.comments.reply');
+    Route::post('articles/comments/store', [App\Http\Controllers\Api\V1\ArticleCommentController::class, 'store'])->name('articles.comments.store');
 }
