@@ -19,6 +19,7 @@ class CreateCommentRequest extends ApiRequest
     {
         return array_merge($this->all(), [
             'article_id' => $this->route('article_id'),
+            'comment_id' => $this->route('comment_id')
         ]);
     }
     /**

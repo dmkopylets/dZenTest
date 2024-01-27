@@ -34,24 +34,23 @@ class ArticleCommentController extends \App\Http\Controllers\Controller
         ]);
     }
 
-    public function addFirst(Article $article, CreateCommentRequest $request)
+    public function addFirst(CreateCommentRequest $request)
     {
         $input = $request->validated();
         $input['position'] = 1;
         $url = route('articles.comments.store');
-        $response = Request::create($url, 'POST', ['data' => json_encode($input)]);
-        $result = app()->handle($response);
+        app()->handle(Request::create($url, 'POST', ['data' => json_encode($input)]));
         return redirect()->route('articles.comments', ['article' => $input['article_id']]);
     }
 
-    public function addReply(Article $article, ArticlesComment $comment, CreateCommentRequest $request)
+    public function addReply(int $article_id, int $comment_id, CreateCommentRequest $request)
     {
         $input = $request->validated();
-        $input['parent_id'] = request()->input('parent_id_' . (string)$comment->id);
-        $input['position'] = $comment->position++;
+        $comment = $this->model->find($comment_id);
+        $input['parent_id'] = $comment->id;
+        $input['position'] = $comment->position + 1;
         $url = route('articles.comments.store');
-        $response = Request::create($url, 'POST', ['data' => json_encode($input)]);
-        $result = app()->handle($response);
+        app()->handle(Request::create($url, 'POST', ['data' => json_encode($input)]));
         return redirect()->route('articles.comments', ['article' => $input['article_id']]);
     }
 

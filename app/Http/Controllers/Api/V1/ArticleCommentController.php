@@ -104,8 +104,7 @@ class ArticleCommentController extends ApiController
     {
         $data = $request->validated();
         $data['position'] = 1;
-        //$this->model->fill($data)->push();
-        return $this->sendResponse(null, 'Created', 201);
+        return redirect()->route('articles.comments.store', ['data' => $data]);
     }
 
     /**
@@ -163,13 +162,11 @@ class ArticleCommentController extends ApiController
      *       )
      *  )
      */
-    public function addReply(Article $article, ArticlesComment $comment, Request $request)
+    public function addReply(CreateCommentRequest $request)
     {
         $data = $request->validated();
-        $data['position'] = $comment->position++;
-        $input['parent_id'] = $comment->id;
-        //$this->model->fill($data)->push();
-        return $this->sendResponse(null, 'Created', 201);
+        $data['position'] =$this->model->find($data['parent_id']);
+        return redirect()->route('articles.comments.store', ['data' => $data]);
     }
 
     /**
