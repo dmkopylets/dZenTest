@@ -38,8 +38,7 @@ class ArticleCommentController extends \App\Http\Controllers\Controller
     {
         $input = $request->validated();
         $input['position'] = 1;
-        $url = route('articles.comments.store');
-        app()->handle(Request::create($url, 'POST', ['data' => json_encode($input)]));
+        $this->store($input);
         return redirect()->route('articles.comments', ['article' => $input['article_id']]);
     }
 
@@ -49,9 +48,13 @@ class ArticleCommentController extends \App\Http\Controllers\Controller
         $comment = $this->model->find($comment_id);
         $input['parent_id'] = $comment->id;
         $input['position'] = $comment->position + 1;
-        $url = route('articles.comments.store');
-        app()->handle(Request::create($url, 'POST', ['data' => json_encode($input)]));
+        $this->store($input);
         return redirect()->route('articles.comments', ['article' => $input['article_id']]);
+    }
+
+    public function store(array $data): void
+    {
+        $this->model->fill($data)->push();
     }
 
     private function applyOrdering(Article $article, array $orderingSets)
