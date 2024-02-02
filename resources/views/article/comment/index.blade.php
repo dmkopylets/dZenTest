@@ -54,7 +54,8 @@
                     </th>
                 </tr>
             </table>
-            @include('article.comment.commentsDisplay', ['comments' => $comments, 'article_id' => $article->id])
+            <!-- @include('article.comment.commentsDisplay', ['comments' => $comments, 'article_id' => $article->id]) -->
+            @include('article.comment.view', ['comments' => $comments, 'article_id' => $article->id])
         @else
             <h3>There are no comments for this article</h3>
         @endif

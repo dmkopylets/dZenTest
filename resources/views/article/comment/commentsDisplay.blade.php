@@ -5,7 +5,6 @@
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse-{{ $comment->id }}" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
                 <table width="700">
                     <tr>
-
                         <td width="25%">
                             <strong>{{ __($comment->user_name) }} </strong>
                         </td>
