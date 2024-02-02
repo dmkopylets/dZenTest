@@ -9,18 +9,20 @@ class CreateArticlesCommentsTableMigration extends Migration
     public function up()
     {
         Schema::create('articles_comments', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedBigInteger('article_id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->unsignedBigInteger('id', true);
+            $table->unsignedBigInteger('article_id', false);
+            #$table->foreignId('article_id')->constrained();
+            $table->unsignedBigInteger('user_id', false);
+            #$table->foreignId('user_id')->constrained();
+            $table->unsignedBigInteger('parent_id', false)->nullable();
             $table->integer('position')->nullable()->default(0);
-            $table->text('body');
+            $table->longText('body');
             $table->softDeletes();
             $table->timestamps();
 
-            $table->index('article_id', 'comment_article_idx');
-            $table->index('article_id', 'comment_user_idx');
-            $table->index('article_id', 'comment_parent_idx');
+            $table->index('id', 'comment_article_idx');
+            #$table->index('comment_user_id', 'comment_user_idx');
+            #$table->index('comment_parent_id', 'comment_parent_idx');
 
             $table->foreign('article_id', 'comment_article_fk')
                 ->references('id')
