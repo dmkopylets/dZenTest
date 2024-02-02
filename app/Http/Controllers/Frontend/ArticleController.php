@@ -27,7 +27,7 @@ class ArticleController extends Controller
 
         return view('article.index', [
             'title' => 'Articals list',
-            'records' => $this->model->getList($wantedAuthor, $wantedTitle),
+            'articles' => $this->model->getList($wantedAuthor, $wantedTitle),
             'add_th' => array('Author', 'Title'),
             'add_td' => array('user_name', 'title'),
             'th_width' => array(200, 400),

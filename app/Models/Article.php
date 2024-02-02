@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Article extends Model
 {
@@ -16,6 +17,10 @@ class Article extends Model
         'user_id',
         'title',
         'body'
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime'
     ];
 
     public function user()
@@ -39,6 +44,15 @@ class Article extends Model
             ->leftJoin('users', 'articles.user_id', '=', 'users.id')
             ->get();
             return $list;
+    }
 
+    public function getFormattedDate()
+    {
+        return $this->created_at->format('F jS Y');
+    }
+
+    public function shortBody($words = 30): string
+    {
+        return Str::words(strip_tags($this->body), $words);
     }
 }
