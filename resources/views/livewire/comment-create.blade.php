@@ -1,3 +1,0 @@
-<div>
-    Comment Create
-</div>
