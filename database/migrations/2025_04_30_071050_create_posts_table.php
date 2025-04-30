@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title', 2048);
             $table->string('slug', 2048);
+            $table->string('thumbnail', 2048)->nullable();
+            $table->longText('body')->nullable();
+            $table->boolean('active');
+            $table->datetime('published_at');
+            $table->foreignIdFor(\App\Models\User::class, 'user_id');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -25,9 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-//Schema::dropIfExists('categories');
-        Schema::table('categories', function (Blueprint $table) {
-            $table->dropSoftDeletes();
-        });
+        Schema::dropIfExists('posts');
     }
 };
