@@ -23,3 +23,5 @@ yarn-error.log
 /.zed
 /docker-compose.yml
 /Makefile
+/.php-cs-fixer.dist.php
+/.editorconfig
