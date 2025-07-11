@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Fetchers\OrderByDTO;
 use App\Models\Article;
 use Illuminate\Http\Request;
-use App\Models\ArticlesComment;
+use App\Models\Comment;
 use OpenApi\Annotations as OA;
 use App\Http\Requests\CreateCommentRequest;
 
@@ -14,7 +14,7 @@ class ArticleCommentController extends ApiController
 {
     protected Article $article;
 
-    public function __construct(ArticlesComment $model, Request $request)
+    public function __construct(Comment $model, Request $request)
     {
         parent::__construct($request);
         $this->model = $model;

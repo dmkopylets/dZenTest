@@ -12,19 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('articles', function (Blueprint $table) {
-            $table->unsignedBigInteger('id', true);
-            #$table->foreignId('user_id')->constrained();
-            $table->unsignedBigInteger('user_id', false);
-            $table->string('title');
+            $table->id();
+            $table->string('title', 2048);
+            $table->string('slug', 2048);
+            $table->string('thumbnail', 2048)->nullable();
             $table->longText('body');
+            $table->boolean('active');
+            $table->datetime('published_at');
+            $table->foreignIdFor(\App\Models\User::class, 'user_id');
             $table->timestamps();
-
-            $table->index('id', 'article_idx');
-
-            $table->foreign('user_id', 'article_user_fk')
-                ->references('id')
-                ->on('users')
-                ->onDelete('set null');
         });
     }
 

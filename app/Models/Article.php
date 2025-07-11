@@ -10,12 +10,15 @@ class Article extends Model
     use HasFactory;
 
     protected $table = 'articles';
-    protected $primaryKey = 'id';
+
     protected $fillable = [
-        'id',
-        'user_id',
         'title',
-        'body'
+        'slug',
+        'thumbnail',
+        'body',
+        'active',
+        'published_at',
+        'user_id',
     ];
 
     public function user()
