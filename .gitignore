@@ -25,3 +25,5 @@ yarn-error.log
 /Makefile
 /.php-cs-fixer.dist.php
 /.editorconfig
+composer.lock
+package-lock.json
