@@ -27,28 +27,31 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->maxLength(2048)
-                    ->reactive()
-                    ->afterStateUpdated(function (Set $set, $state) {
-                        $set('slug', Str::slug($state));
-                    }),
-                Forms\Components\TextInput::make('slug')
-                    ->required()
-                    ->maxLength(2048),
-                Forms\Components\TextInput::make('thumbnail')
-                    ->maxLength(2048),
-                Forms\Components\Textarea::make('body')
-                    ->required()
-                    ->columnSpanFull(),
-                Forms\Components\Toggle::make('active')
-                    ->required(),
-                Forms\Components\DateTimePicker::make('published_at')
-                    ->required(),
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->required(),
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('title')
+                            ->required()
+                            ->maxLength(2048)
+                            ->reactive()
+                            ->afterStateUpdated(function (Set $set, $state) {
+                                $set('slug', Str::slug($state));
+                            }),
+                        Forms\Components\TextInput::make('slug')
+                            ->required()
+                            ->maxLength(2048),
+                        Forms\Components\TextInput::make('thumbnail')
+                            ->maxLength(2048),
+                        Forms\Components\Textarea::make('body')
+                            ->required()
+                            ->columnSpanFull(),
+                        Forms\Components\Toggle::make('active')
+                            ->required(),
+                        Forms\Components\DateTimePicker::make('published_at')
+                            ->required(),
+                        Forms\Components\Select::make('user_id')
+                            ->relationship('user', 'name')
+                            ->required(),
+                    ])
             ]);
     }
 
