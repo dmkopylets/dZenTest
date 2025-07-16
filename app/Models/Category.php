@@ -11,9 +11,12 @@ class Category extends Model
     use SoftDeletes;
     protected $fillable = ['title', 'slug'];
 
+    public function articles(): BelongsToMany
+    {
+        return $this->belongsToMany(Article::class);
+    }
     public function posts(): BelongsToMany
     {
         return $this->belongsToMany(Post::class);
     }
-
 }

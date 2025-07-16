@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Article extends Model
 {
@@ -26,6 +27,11 @@ class Article extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
     public function getList(? string $wantedAuthor, ? string $wantedTitle)
     {
         $list = self::select(
@@ -41,7 +47,6 @@ class Article extends Model
             ->where('title', 'like', '%' . $wantedTitle . '%')
             ->leftJoin('users', 'articles.user_id', '=', 'users.id')
             ->get();
-            return $list;
-
+        return $list;
     }
 }
