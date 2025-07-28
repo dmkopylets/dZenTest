@@ -15,13 +15,42 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function home(): View
     {
+        // Latest post
+        $latestPost = Post::where('active', '=', 1)
+            ->whereDate('published_at', '<', Carbon::now())
+            ->orderBy('published_at', 'desc')
+            ->limit(1)
+            ->first();
+
+        // Show recent categories with their latest posts
+        $categories = Category::query()
+            ->whereHas('posts', function ($query) {
+                $query
+                    ->where('active', '=', 1)
+                    ->whereDate('published_at', '<', Carbon::now());
+            })
+            ->select('categories.*')
+            ->selectRaw('MAX(posts.published_at) as max_date')
+            ->leftJoin('category_post', 'categories.id', '=', 'category_post.category_id')
+            ->leftJoin('posts', 'posts.id', '=', 'category_post.post_id')
+            ->orderByDesc('max_date')
+            ->groupBy([
+                'categories.id',
+                'categories.title',
+                'categories.slug',
+                'categories.created_at',
+                'categories.updated_at',
+            ])
+            ->limit(5)
+            ->get();
+
         $posts = Post::query()
             ->where('active', '=', 1)
             ->whereDate('published_at', '<', Carbon::now())
             ->orderBy('published_at', 'desc')
-            ->paginate(10);
+            ->paginate(5);
         ;
 
         return view('home', compact('posts'));
@@ -105,6 +134,6 @@ class PostController extends Controller
             ->orderBy('published_at', 'desc')
             ->paginate(10);
 
-        return view('home', compact('posts'));
+        return view('post.index', compact('posts', 'category'));
     }
 }
