@@ -16,14 +16,14 @@ class AppLayout extends Component
         $this->categories = Category::query()
             ->join('category_post', 'categories.id', '=', 'category_post.category_id')
             ->select('categories.title', 'categories.slug', DB::raw('count(*) as total'))
-            ->groupBy(['categories.title', 'categories.slug'])
+            ->groupBy(['categories.id'])
             ->orderByDesc('total')
             ->limit(5)
             ->get();
     }
 
     /**
-     * Get the view / contents that represent the component.
+     * Get the view / contents that represents the component.
      */
     public function render(): View
     {
