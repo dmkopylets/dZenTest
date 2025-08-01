@@ -44,7 +44,6 @@
     </div>
     <div :class="(open ? 'block' : 'hidden') + ' w-full flex-grow sm:flex sm:items-center sm:w-auto'">
         <div
-{{--            class="w-full sm:max-w-full mx-auto flex flex-row flex-wrap sm:flex-row sm:flex-wrap items-center justify-center text-sm font-bold uppercase mt-0 px-6 py-2">--}}
             class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-between text-sm font-bold uppercase mt-0 px-6 py-2">
             <div>
                 <a href="{{route('home')}}" class="hover:bg-blue-600 hover:text-white rounded py-2 px-4 mx-2">Home</a>
@@ -93,7 +92,7 @@
                     <a href="{{route('login')}}"
                        class="hover:bg-blue-600 hover:text-white rounded py-2 px-4 mx-2">Login</a>
                     <a href="{{route('register')}}"
-                       class="hover:bg-blue-600 hover:text-white rounded py-2 px-4 mx-2">Register</a>
+                       class="bg-blue-600 text-white rounded py-2 px-4 mx-2">Register</a>
                 @endauth
             </div>
             </div>
