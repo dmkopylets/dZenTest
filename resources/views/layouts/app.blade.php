@@ -14,6 +14,7 @@
         <!-- Font Awesome -->
         <script src="{{ asset('js/all.min.js') }}" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
 
+        @livewireStyles
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     </head>
@@ -111,5 +112,6 @@
     </div>
 </footer>
 
+@livewireScripts
 </body>
 </html>
