@@ -4,40 +4,37 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Comment extends Model
 {
     use HasFactory;
 
-    protected $table = 'articles_comments';
-    protected $primaryKey = 'id';
     protected $fillable = [
-        'id',
-        'article_id',
+        'comment',
+        'post_id',
         'user_id',
-        'parent_id',
-        'body'
+        'parent_id'
     ];
 
-    public $sortable = ['created_at'];
-
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function article()
+    public function post(): BelongsTo
     {
-        return $this->belongsTo(Article::class);
+        return $this->belongsTo(Post::class);
     }
 
-    public function replies()
+    public function parentComment(): BelongsTo
     {
-        return $this->hasMany(Comment::class, 'parent_id');
+        return $this->belongsTo(Comment::class, 'parent_id');
     }
 
-    public function getList()
+    public function comments(): HasMany
     {
-        return Comment::get();
+        return $this->hasMany(Comment::class, 'parent_id')->orderByDesc('created_at');
     }
 }

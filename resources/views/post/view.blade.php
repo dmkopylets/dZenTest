@@ -1,6 +1,6 @@
 <x-app-layout :meta-title="$post->meta_title ?: $post->title" :meta-description="$post->meta_description">
         <!-- Post Section -->
-        <section class="w-full md:w-2/3 flex flex-col items-center px-3">
+        <section class="w-full md:w-2/3 flex flex-col px-3">
 
             <article class="flex flex-col shadow my-4">
                 <!-- Article Image -->
@@ -32,7 +32,8 @@
             <div class="w-full flex pt-6">
                 <div class="w-1/2">
                     @if($prev)
-                        <a href="{{route('view', $prev)}}" class="blok w-full bg-white shadow hover:shadow-md text-left p-6">
+                        <a href="{{route('view', $prev)}}"
+                           class="block w-full bg-white shadow hover:shadow-md text-left p-6">
                             <p class="text-lg text-blue-800 font-bold flex items-center">
                                 <i class="fas fa-arrow-left pr-1"></i>
                                 Previous
@@ -43,7 +44,8 @@
                 </div>
                 <div class="w-1/2">
                     @if($next)
-                        <a href="{{route('view', $next)}}" class="blok w-full bg-white shadow hover:shadow-md text-right p-6">
+                        <a href="{{route('view', $next)}}"
+                           class="block w-full bg-white shadow hover:shadow-md text-right p-6">
                             <p class="text-lg text-blue-800 font-bold flex items-center justify-end">
                                 Next
                                 <i class="fas fa-arrow-right pl-1"></i>
@@ -53,5 +55,7 @@
                     @endif
                 </div>
             </div>
+            <livewire:comments :post="$post"/>
         </section>
+    <x-sidebar/>
 </x-app-layout>
