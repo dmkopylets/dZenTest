@@ -1,7 +1,5 @@
 <div>
     <div x-data="{
-{{--            focused: {{ $parentComment ? 'true' : 'false' }},--}}
-            isEdit: {{ $commentModel ? 'true' : 'false'}},
             init() {
                 if (this.isEdit || this.focused)
                     this.$refs.input.focus();

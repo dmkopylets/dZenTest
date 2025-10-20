@@ -34,7 +34,6 @@ class Comments extends Component
     {
         return Comment::where('post_id', '=', $this->post->id)
             ->with(['post', 'user', 'comments'])
-//            ->whereNull('parent_id')
             ->orderByDesc('created_at')
             ->get();
     }
@@ -42,7 +41,7 @@ class Comments extends Component
     public function commentCreated()
     {
         $comments = $this->selectComments();
-        $this->comments = $this->comments->prepend($comment);
+        $this->comments = $this->comments->prepend($comments);
     }
 
     public function commentDeleted(int $id)
