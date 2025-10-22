@@ -15,7 +15,7 @@ class CommentCreate extends Component
     public ?Comment $commentModel = null;
     public ?Comment $parentComment = null;
 
-    public function mount(Post $post, $commentModel = null, $parentComment = null)
+    public function mount(Post $post, $commentModel = null, $parentComment = null): void
     {
         $this->post = $post;
         $this->commentModel = $commentModel;
@@ -24,7 +24,7 @@ class CommentCreate extends Component
         $this->parentComment = $parentComment;
     }
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
     {
         return view('livewire.comment-create');
     }
@@ -45,7 +45,7 @@ class CommentCreate extends Component
             $this->commentModel->save();
 
             $this->comment = '';
-            $this->emitUp('commentUpdated');
+            $this->dispatch('commentCreated')->to($this->parentComment);
         } else {
             $comment = Comment::create([
                 'comment' => $this->comment,
@@ -53,8 +53,7 @@ class CommentCreate extends Component
                 'user_id' => $user->id,
                 'parent_id' => $this->parentComment?->id
             ]);
-
-            $this->emitUp('commentCreated', $comment->id);
+            $this->dispatch('commentCreated', id: $comment->id)->to($this->parentComment);
             $this->comment = '';
         }
     }
