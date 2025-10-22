@@ -16,29 +16,22 @@ Full text of the task here [task](task%2FPHP_Laravel_SPA_Application_comments.pd
 ***
 
 git clone https://github.com/dmkopylets/dZenTest.git
+cd dZenTest
 
-**to build docker containers use:**
+    copy file .env.example to .env
+    mkdir -p storage/framework/views
+    mkdir -p storage/framework/cache
+    mkdir -p storage/framework/sessions
 
-copy file .env.example to .env
+    chmod -R 775 storage bootstrap/cache
+    chown -R www-data:www-data storage bootstrap/cache
 
-make dc-build
+    composer install
 
-**to start the containers use:**
-
-make dc-up
-
-**then install packages for vendors:**
-
-make composer-i
-
-**then initialize the database:**
-
-make db-init
-
-***
-
-in the future could only use 
-**make dc-up**
+    npm install
+    npm run build
+    php artisan storage:link
+    php artisan migrate
 
 **it will be possible to test the application in a browser at localhost**
 
@@ -51,7 +44,6 @@ in the future could only use
 **  http://localhost/api/documentation - Swagger API documentation
     ![documentation.png](task%2Fdocumentation.png)    
 
-and to stop docker containers use 
-**make dc-down**
+
 
 

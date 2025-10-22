@@ -33,7 +33,7 @@ class PostController extends Controller
                 $query->whereNull('upvote_downvotes.is_upvoted')
                     ->orWhere('upvote_downvotes.is_upvoted', '=', 1);
             })
-            ->where('active', '=', 1)
+            ->where('active', '=', true)
             ->whereDate('published_at', '<', Carbon::now())
             ->orderByDesc('upvote_count')
             ->groupBy([
@@ -57,9 +57,10 @@ class PostController extends Controller
         $user = auth()->user();
 
         if ($user) {
-            $leftJoin = "(SELECT cp.category_id, cp.post_id FROM upvote_downvotes
+            $leftJoin = '(SELECT cp.category_id, cp.post_id FROM upvote_downvotes
                         JOIN category_post cp ON upvote_downvotes.post_id = cp.post_id
-                        WHERE upvote_downvotes.is_upvoted = true and upvote_downvotes.user_id = ?) as t";
+                        WHERE upvote_downvotes.is_upvoted = true and upvote_downvotes.user_id = ?) as t';
+
             $recommendedPosts = Post::query()
                 ->leftJoin('category_post as cp', 'posts.id', '=', 'cp.post_id')
                 ->leftJoin(DB::raw($leftJoin), function ($join) {
@@ -96,7 +97,6 @@ class PostController extends Controller
                 ->get();
         }
 
-
         // Show recent categories with their latest posts
         $categories = Category::query()
 //            ->with(['posts' => function ($query) {
@@ -122,7 +122,6 @@ class PostController extends Controller
             ->limit(5)
             ->get();
 
-
         return view('home', compact(
             'latestPost',
             'popularPosts',
@@ -131,14 +130,13 @@ class PostController extends Controller
         ));
     }
 
-
     /**
      * Display the specified resource.
      */
     public function show(Post $post, Request $request)
     {
-        if (!$post->active || $post->published_at > Carbon::now()) {
-            throw new NotFoundHttpException();
+        if (! $post->active || $post->published_at > Carbon::now()) {
+            throw new NotFoundHttpException;
         }
 
         $next = Post::query()
@@ -162,7 +160,7 @@ class PostController extends Controller
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
             'post_id' => $post->id,
-            'user_id' => $user?->id
+            'user_id' => $user?->id,
         ]);
 
         return view('post.view', compact('post', 'prev', 'next'));
