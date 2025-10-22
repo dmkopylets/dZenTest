@@ -60,6 +60,7 @@ class PostController extends Controller
             $leftJoin = '(SELECT cp.category_id, cp.post_id FROM upvote_downvotes
                         JOIN category_post cp ON upvote_downvotes.post_id = cp.post_id
                         WHERE upvote_downvotes.is_upvoted = true and upvote_downvotes.user_id = ?) as t';
+
             $recommendedPosts = Post::query()
                 ->leftJoin('category_post as cp', 'posts.id', '=', 'cp.post_id')
                 ->leftJoin(DB::raw($leftJoin), function ($join) {

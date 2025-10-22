@@ -1,7 +1,8 @@
 import './bootstrap';
 
-import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
-
-Alpine.start();
+if (!window.Alpine) {
+    import('alpinejs').then(Alpine => {
+        window.Alpine = Alpine.default;
+        Alpine.start();
+    });
+}
