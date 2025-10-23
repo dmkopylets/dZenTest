@@ -6,6 +6,9 @@
 /public/storage
 /storage/*.key
 /storage/pail
+/storage/debugbar
+/storage/framework
+/storage/logs
 /vendor
 .env
 .env.backup
@@ -29,3 +32,4 @@ yarn-error.log
 composer.lock
 package-lock.json
 /.php-cs-fixer.cache
+pint.json

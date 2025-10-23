@@ -43,31 +43,31 @@ class CommentItem extends Component
         $id = $this->comment->id;
 
         $this->comment->delete();
-        $this->emitUp('commentDeleted', $id);
+        $this->dispatch('commentDeleted', id: $this->comment->id)->to($this->comment);
     }
 
-    public function startCommentEdit()
+    public function startCommentEdit(): void
     {
         $this->editing = true;
     }
 
-    public function cancelEditing()
+    public function cancelEditing(): void
     {
         $this->editing = false;
         $this->replying = false;
     }
 
-    public function commentUpdated()
+    public function commentUpdated(): void
     {
         $this->editing = false;
     }
 
-    public function startReply()
+    public function startReply(): void
     {
         $this->replying = true;
     }
 
-    public function commentCreated()
+    public function commentCreated(): void
     {
         $this->replying = false;
     }
