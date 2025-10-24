@@ -1,22 +1,16 @@
-/* Import Tailwind CSS framework */
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
 
-/* Custom theme configuration with system font stack */
-@theme {
-    --font-sans: 'Inter var', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+.font-family-karla {
+    font-family: karla;
 }
 
-/* Include Tailwind CSS plugins for enhanced form styling and typography */
-@plugin '@tailwindcss/forms';
-@plugin '@tailwindcss/typography';
-
-/* Remove default red box-shadow on invalid form elements */
-input:invalid, textarea:invalid, select:invalid {
-    box-shadow: none;
-}
-
-/* Hide elements with x-cloak attribute (used with Alpine.js) until JavaScript loads */
-[x-cloak] {
-    display: none;
+pre {
+    padding: 1rem;
+    background-color: #1a202c;
+    color: white;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
 }

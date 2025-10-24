@@ -1,0 +1,29 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "array_syntax": {
+            "syntax": "short"
+        },
+        "brace_position": {
+            "control_structures": "same_line"
+        },
+        "method_argument_space": {
+            "on_multiline": "ensure_fully_multiline"
+        },
+        "phpdoc_align": {
+            "align": "vertical"
+        },
+        "phpdoc_annotation_without_dot": false,
+        "single_trait_insert_per_statement": true,
+        "binary_operator_spaces": {
+            "operators": {
+                "=": "align"
+            }
+        },
+        "ordered_imports": true,
+        "no_unused_imports": true,
+        "no_empty_comment": true,
+        "no_trailing_whitespace_in_string": true,
+        "space_after_semicolon": true
+    }
+}

@@ -21,8 +21,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome')->name('home');
-
 Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)
         ->name('login');
@@ -54,3 +52,8 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', LogoutController::class)
         ->name('logout');
 });
+
+
+require __DIR__.'/auth.php';
+
+Route::get('/', [\App\Http\Controllers\Frontend\PostController::class, 'show'])->name('home');
