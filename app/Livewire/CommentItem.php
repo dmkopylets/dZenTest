@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Comment;
 use Livewire\Component;
+use Illuminate\View\View;
 
 class CommentItem extends Component
 {
@@ -19,12 +20,12 @@ class CommentItem extends Component
         'commentCreated' => 'commentCreated',
     ];
 
-    public function mount(Comment $comment)
+    public function mount(Comment $comment): void
     {
         $this->comment = $comment;
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.comment-item');
     }
@@ -41,9 +42,8 @@ class CommentItem extends Component
         }
 
         $id = $this->comment->id;
-
         $this->comment->delete();
-        $this->dispatch('commentDeleted', id: $this->comment->id)->to($this->comment);
+        $this->dispatch('commentDeleted', id: $id);
     }
 
     public function startCommentEdit(): void

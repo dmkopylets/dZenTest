@@ -5,6 +5,9 @@ namespace App\Livewire;
 use App\Models\Post;
 use App\Models\Comment;
 use Livewire\Component;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\View\View;
 
 class Comments extends Component
 {
@@ -15,39 +18,23 @@ class Comments extends Component
         'commentDeleted' => '$refresh',
     ];
 
-    public function mount(Post $post)
+    public function mount(Post $post): void
     {
         $this->post = $post;
     }
 
-    public function render()
+    public function render(): View
     {
         $comments = $this->selectComments();
         return view('livewire.comments', compact('comments'));
     }
 
-    /**
-     *
-     * @return mixed
-     */
-    private function selectComments()
+    private function selectComments(): Builder|Collection
     {
         return Comment::where('post_id', '=', $this->post->id)
             ->with(['post', 'user', 'comments'])
+            ->whereNull('parent_id')
             ->orderByDesc('created_at')
             ->get();
-    }
-
-    public function commentCreated()
-    {
-        $comments = $this->selectComments();
-        $this->comments = $this->comments->prepend($comments);
-    }
-
-    public function commentDeleted(int $id)
-    {
-        $this->comments = $this->comments->reject(function ($comment) use ($id) {
-            return $comment->id === $id;
-        });
     }
 }

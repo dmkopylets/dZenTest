@@ -5,6 +5,8 @@ namespace App\Livewire;
 use App\Models\Post;
 use App\Models\Comment;
 use Livewire\Component;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 
 class CommentCreate extends Component
 {
@@ -24,7 +26,7 @@ class CommentCreate extends Component
         $this->parentComment = $parentComment;
     }
 
-    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
+    public function render(): Factory|View|\Illuminate\View\View
     {
         return view('livewire.comment-create');
     }
